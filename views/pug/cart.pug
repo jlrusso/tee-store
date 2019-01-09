@@ -1,0 +1,31 @@
+extends ../layouts/main.pug
+block style
+  link(type='text/css' rel='stylesheet' href='/css/cart.css')
+block content
+  section(class='cart-wrap')
+    div(class='cart-item-list p-4')
+      h4(class='font-weight-bold mb-5 d-inline-block text-dark') Shopping Cart 
+      each product in cartProducts 
+        div(class='cart-item-wrap mb-4 p-2')
+          div(class='item-img')
+            img(class='w-100' src=`${product.image}`)
+          div(class='item-desc-wrap')
+            p(class='pl-3') #{product.name} 
+            p(class='pl-3') Size: #{product.size}
+          div(class='item-quantity-wrap')
+            div
+              a(class='font-weight-bold text-center px-2 reduce-btn') - 
+              input(type='number' value=`${product.quantity}` min='0' max='99')
+              a(class='font-weight-bold text-center px-2 increase-btn') +
+          div(class='item-price-wrap')
+            p(class='text-center' data-price=`${product.price}`)
+          div(class='close-btn-wrap')
+            a(href=`/cart/remove-product/${product.id}` class='text-dark')
+              i(class='fa fa-times')
+
+      div(class='cart-checkout p-4')
+        h4(class='text-center font-weight-bold') Order Summary
+        button(class='btn btn-primary py-2') Checkout
+
+block script  
+  script(type='text/javascript' src='/js/cart.js')
