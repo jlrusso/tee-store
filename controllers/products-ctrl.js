@@ -1,22 +1,23 @@
 const Product = require('../models/products-md');
 
 exports.goToProducts = (req, res) => {
-  Product.fetchProducts(products => {
+  Product.fetchProducts().then(([rows]) => {
     res.render('products', {
-      products,
+      products: rows,
       pageTitle: 'TeeStore | Products',
       path: '/products'
     });
-  });
+  }).catch(err => console.log(err));
 }
 
 exports.goToDetails = (req, res) => {
-  const productId = req.params.productId;
-  Product.getProductDetails(productId, product => {
+  const productTitle = req.params.productTitle;
+  Product.getProductDetails(productTitle).then(([rows]) => {
+    console.log(rows[0]);
     res.render('product-details', {
-      product,
+      product: rows[0],
       pageTitle: 'TeeStore | Product Details',
       path: '/product/product-details'
     });
-  });
+  }).catch(err => console.log(err));
 }
