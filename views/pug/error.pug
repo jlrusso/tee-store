@@ -1,0 +1,7 @@
+extends ../layouts/main.pug 
+block style 
+  link(type='text/css' rel='stylesheet' href='/css/error.css')
+block content 
+  section(class='error-wrap')
+    h3(class='text-center mb-3') Page DNE
+    a(class='btn btn-primary px-5' href='/home') Homepage
