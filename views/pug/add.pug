@@ -1,0 +1,23 @@
+extends ../layouts/main.pug 
+block style 
+  link(type='text/css' rel='stylesheet' href='/css/add.css')
+block content
+  section(class='add-product-wrap')
+    h4(class='text-center') Add Product
+    form(action='/add/new-product' method='POST' id='add-product-form')
+      div(class='form-group')
+        label(for='product-type') Product Type:
+        select(id='product-type' name='type' class='form-control' required)
+          option Shirt
+          option Pants
+          option Sweater
+      div(class='form-group')
+        label(for='product-title') Title:
+        input(type='text' name='title' id='product-title' class='form-control' required)
+      div(class='form-group')
+        label(for='product-image') Image:
+        input(type='text' name='image' id='product-image' class='form-control' required)
+      div(class='form-group')
+        label(for='product-price') Price:
+        input(type='number' name='price' id='product-price' step='0.01' class='form-control' required) 
+      input(type='submit' value='Submit' class='btn btn-primary w-100')
