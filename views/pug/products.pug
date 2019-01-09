@@ -6,7 +6,7 @@ block content
     h4(class='font-weight-bold pb-3 text-center') Products
     div(id='products-grid')
       each product in products
-        a(class='product p-3 text-dark' href=`/products/product-details/${product.id}`)
-          img(class='product-image' src=`${product.image}`)
-          p(class='text-center py-2') #{product.name}
+        a(class='product p-3 text-dark' href=`/products/product-details/${product.title}`)
+          img(class='product-image' src=`${product.front_image}`)
+          p(class='text-center py-2') #{product.title}
           p(class='product-price text-center') $#{product.price}
