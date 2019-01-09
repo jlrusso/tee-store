@@ -1,0 +1,27 @@
+#products-wrap {
+  width: 100%;
+  height: 100%;
+  padding-top: 80px !important;
+}
+#products-grid {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 15px;
+}
+#products-grid a {
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.1);
+  height: auto;
+  text-decoration: none !important;
+}
+#products-grid a:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.product-image {
+  display: block;
+  width: 65%;
+  height: auto;
+  margin: auto;
+}
