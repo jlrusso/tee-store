@@ -4,7 +4,7 @@ const productsCtrl = require('../controllers/products-ctrl');
 const errorCtrl = require('../controllers/error-ctrl');
 
 router.get('/', productsCtrl.goToProducts);
-router.get('/product-details/:productId', productsCtrl.goToDetails);
+router.get('/product-details/:productTitle', productsCtrl.goToDetails);
 router.use(errorCtrl.goToError);
 
 module.exports = router;
