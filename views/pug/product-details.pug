@@ -5,16 +5,18 @@ block content
   section(id='product-wrap')
     div(class='product-details-grid')
       div(class='product-image-wrap p-4 text-center')
-        img(alt=`${product.name}` src=`${product.image}`)
+        img(alt=`${product.title}` src=`${product.front_image}`)
+        div(class='front-image rounded' style=`background: url(${product.front_image})`)
+        div(class='back-image rounded' style=`background: url(${product.back_image})`)
       div(class='product-details p-4 rounded')
-        h4(class='text-center mb-3') #{product.name}
+        h4(class='text-center mb-3 font-weight-bold') #{product.title}
         form(action=`/cart/add-product` method='POST')
           div(class='form-group')
             label(for='size-select') Size:
             select(id='size-select' name='size' class='form-control')
               option(value='S') Small
               option(value='M') Medium
-              option(value='L') Large
+              option(value='L' selected) Large
               option(value='XL') X-Large
               option(value='XXL') XX-Large
           div(class='quantity-wrap form-group')
@@ -23,10 +25,14 @@ block content
               button(type='button' class='btn btn-transparent font-weight-bold') -
               input(type='number' class='text-center form-control' name='quantity' id='product-quantity' min='1' max='99' value='1')
               button(type='button' class='btn font-weight-bold') +
-          div(class='details-divider my-5')
+          div(class='form-group')
+            label(for='promo-code') Promo Code:
+            input(type='text' class='form-control text-center' placeholder='e.g. XW3F897X' name='promo' id='promo-code')
+          p(class='text-center font-weight-bold mb-1' id='promo-result') No code
+          div(class='details-divider my-3')
           div(class='product-total-grid')
-            div(class='text-center') Total: 
-            div(id='product-total' class='text-center')
+            div(class='text-right') Total: &nbsp; 
+            div(id='product-total' class='text-left')
             input(type='hidden' name='productId' value=`${product.id}`)
             input(type='hidden' value=`${product.price}` name='price' id='product-price')
           input(type='submit' class='btn btn-primary py-3' value='Add to Cart')
