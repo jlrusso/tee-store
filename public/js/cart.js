@@ -26,7 +26,7 @@
   }
   function updateItemPrice(index){
     const itemPrice = itemPriceFields[index].getAttribute('data-price');
-    const itemTotal = (quantityFields[index].value * parseFloat(itemPrice).toFixed(2));
+    const itemTotal = (quantityFields[index].value * parseFloat(itemPrice)).toFixed(2);
     itemPriceFields[index].textContent = `$ ${itemTotal}`;
   }
 }());
