@@ -1,0 +1,16 @@
+extends ../layouts/main.pug 
+block style 
+  link(type='text/css' rel='stylesheet' href='/css/login.css')
+block content 
+  main(id='login-wrap' class='bg-dark')
+    form(action='/login' method='POST' id='login-form')
+      p(class='text-center')
+        i(class='fas fa-burn text-primary')
+      h2(class='text-center text-light') Log in
+      div(class='form-group')
+        label(for='username-input' class='text-light') Username:
+        input(type='text' name='username' class='form-control' placeholder='jDoe23!' id='username-input')
+      div(class='form-group')
+        label(for='password-input' class='text-light') Password:
+        input(type='password' name='password' class='form-control' placeholder='********' id='password-input')
+      input(type='submit' class='btn btn-primary d-block w-100 mt-4' value='Enter')
