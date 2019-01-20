@@ -11,7 +11,7 @@ block content
       div(class='product-details p-4 rounded')
         h4(class='text-center mb-3 font-weight-bold') #{product.title}
         form(action=`/cart/add-product` method='POST')
-          div(class='form-group')
+          div(class='form-group mb-4')
             label(for='size-select') Size:
             select(id='size-select' name='size' class='form-control')
               option(value='S') Small
@@ -19,22 +19,18 @@ block content
               option(value='L' selected) Large
               option(value='XL') X-Large
               option(value='XXL') XX-Large
-          div(class='quantity-wrap form-group')
+          div(class='quantity-wrap form-group mb-4')
             label(for='product-quantity') Quantity: 
             div(class='quantity-grid')
               button(type='button' class='btn btn-transparent font-weight-bold') -
               input(type='number' class='text-center form-control' name='quantity' id='product-quantity' min='1' max='99' value='1')
               button(type='button' class='btn font-weight-bold') +
-          div(class='form-group')
-            label(for='promo-code') Promo Code:
-            input(type='text' class='form-control text-center' placeholder='e.g. XW3F897X' name='promo' id='promo-code')
-          p(class='text-center font-weight-bold mb-1' id='promo-result') No code
-          div(class='details-divider my-3')
-          div(class='product-total-grid')
-            div(class='text-right') Total: &nbsp; 
-            div(id='product-total' class='text-left')
+          div(class='details-divider my-4')
+          div(class='product-price-grid')
+            div(class='text-right') Price: &nbsp; 
+            div(id='product-price' class='text-left')
             input(type='hidden' name='productId' value=`${product.id}`)
-            input(type='hidden' value=`${product.price}` name='price' id='product-price')
+            input(type='hidden' value=`${product.price}` name='price' id='hidden-price')
           input(type='submit' class='btn btn-primary py-3' value='Add to Cart')
     
 block script 
