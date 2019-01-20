@@ -75,7 +75,7 @@
   background: rgba(0,0,0,0.1);
   margin: auto;
 }
-.product-total-grid {
+.product-price-grid {
   width: 65%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
