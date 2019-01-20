@@ -58,3 +58,6 @@ header {
 #close-search-btn:hover {
   color: #007bff!important;
 }
+#logout-btn {
+  cursor: pointer;
+}
