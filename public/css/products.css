@@ -25,3 +25,12 @@
   height: auto;
   margin: auto;
 }
+#no-products-wrap {
+  width: 300px;
+  max-width: 90%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
