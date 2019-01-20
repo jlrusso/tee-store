@@ -1,0 +1,35 @@
+extends ../layouts/main.pug
+block style
+  link(type='text/css' rel='stylesheet' href='/css/checkout.css')
+block content 
+  section(id='checkout-wrap')
+      
+    div(class='cart-checkout p-4')
+      h4(class='text-center font-weight-bold') Finalize Order
+      form(action='/orders/create-order' method='POST')
+        div(class='checkout-divider mx-auto my-3') 
+        div(class='shipping-wrap')
+          label(class='font-weight-bold') Shipping Info
+          input(type='text' class='form-control mb-2' placeholder='Full name' name='fullname')
+          input(type='text' class='form-control mb-2' placeholder='Street Address' name='address')
+          input(type='text' class='form-control mb-2' placeholder='City' name='city')
+          select(name='state' class='form-control mb-2')
+            option(value='CA') California
+            option(value='WA') Washington
+            option(value='TX') Texas
+            option(value='NY') New York
+            option(value='NV') Nevada
+          input(type='text' class='form-control mb-2' placeholder='Zipcode' name='zipcode') 
+        div(class='payment-wrap')
+          label(class='font-weight-bold') Payment Info
+          input(type='text' class='form-control mb-2' name='cardnum' placeholder='XXXX XXXX XXXX XXXX')
+        div(class='delivery-wrap')
+          label(class='font-weight-bold') Delivery Options
+          div(class='form-check')
+            input(type='radio' class='form-check-input' name='standard' id='standard-delivery' checked)
+            label(for='standard-delivery') Standard Delivery- $2.99
+          div(class='form-check')
+            input(type='radio' class='form-check-input' name='standard' id='rush-delivery')
+            label(for='rush-delivery') Rush Delivery - $6.99
+        button(type='submit' class='btn btn-primary py-2') Checkout
+
