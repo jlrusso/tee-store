@@ -2,11 +2,19 @@ extends ../layouts/main.pug
 block style 
   link(type='text/css' rel='stylesheet' href='/css/products.css')
 block content 
-  section(id='products-wrap' class='p-4') 
-    h4(class='font-weight-bold pb-3 text-center') Products
-    div(id='products-grid')
-      each product in products
-        a(class='product p-3 text-dark' href=`/products/product-details/${product.title}`)
-          img(class='product-image' src=`${product.front_image}`)
-          p(class='text-center py-2') #{product.title}
-          p(class='product-price text-center') $#{product.price}
+  if products.length > 0
+    section(id='products-wrap' class='p-4')
+      h4(class='font-weight-bold pb-3 text-center') Products
+      div(id='products-grid')
+        each product in products
+          a(class='product p-3 text-dark' href=`/products/product-details/${product.title}`)
+            img(class='product-image' src=`${product.front_image}`)
+            p(class='text-center py-2') #{product.title}
+            p(class='product-price text-center') $#{product.price}
+  else
+    section(id='no-products-wrap' class='text-center')
+      h4(class='font-weight-bold mb-3') No products
+      a(href='/add' class='btn btn-primary px-4') Add Product
+
+
+    
