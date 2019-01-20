@@ -3,6 +3,10 @@ block style
   link(type='text/css' rel='stylesheet' href='/css/home.css')
 block content
   div(id='welcome-wrap' class='text-center text-dark')
-    h3 Welcome to the Store!
-    p Click on the button below to check out the products
-    a(href='/products' class='btn btn-primary px-4') See Products
+    if username 
+      h2(class='font-weight-bold') Welcome back #{username}!
+    else 
+      h2(class='font-weight-bold') Welcome Guest!
+    h3 Find shirts that best fit your personality.
+    p Click on the button below to check out some shirts
+    a(href='/products' class='btn btn-primary px-4') Lets Go!
