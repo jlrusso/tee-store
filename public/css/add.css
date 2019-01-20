@@ -9,3 +9,6 @@
   width: 350px;
   max-width: 95%;
 }
+::placeholder {
+  color: rgba(0,0,0,0.3) !important;
+}
