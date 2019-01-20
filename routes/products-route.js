@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const productsCtrl = require('../controllers/products-ctrl');
+const productCtrl = require('../controllers/product-ctrl');
 const errorCtrl = require('../controllers/error-ctrl');
 
-router.get('/', productsCtrl.goToProducts);
-router.get('/product-details/:productTitle', productsCtrl.goToDetails);
+router.get('/', productCtrl.goToProducts);
+router.get('/product-details/:productTitle', productCtrl.goToDetails);
 router.use(errorCtrl.goToError);
 
 module.exports = router;
