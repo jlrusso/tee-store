@@ -2,11 +2,39 @@ extends ../layouts/main.pug
 block style
   link(type='text/css' rel='stylesheet' href='/css/home.css')
 block content
-  div(id='welcome-wrap' class='text-center text-dark')
-    if username 
-      h2(class='font-weight-bold') Welcome back #{username}!
-    else 
-      h2(class='font-weight-bold') Welcome Guest!
-    h3 Find shirts that best fit your personality.
-    p Click on the button below to check out some shirts
-    a(href='/products' class='btn btn-primary px-4') Lets Go!
+  section(class='landing-wrap text-center')
+    div(class='landing-grid')
+      div(class='landing-slide w-75 mx-auto border border-danger')
+      div(class='call-to-action') 
+        h2(class='display-5') Custom t-shirts of all types
+        p(class='text-center w-75 mx-auto') Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste beatae dolor vero perferendis non ex provident, veniam eos itaque?
+        a(href='/products' class='btn btn-primary px-4') Lets Go!
+      
+  section(class='custom-info-wrap')
+    div(class='info-desc-wrap')
+      div(class='info-desc-content text-center w-75')
+        h2 Customize Existing T-shirts
+        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Error labore totam unde officiis sit at odio nobis? Saepe voluptate, voluptatum veniam impedit nam, numquam ipsa molestias, sapiente accusamus sit eos.
+    div(class='info-img-wrap')
+      div(class='info-img')
+
+  section(class='build-info-wrap')
+    div(class='info-img-wrap')
+      div(class='info-img')
+    div(class='info-desc-wrap')
+      div(class='info-desc-content text-center w-75')
+        h2 Build Designs from Scratch
+        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur doloremque odit, necessitatibus non perferendis doloribus. Dolor debitis iusto esse dolorum ea facilis quasi quae eligendi earum. a new power is
+
+  section(class='popular-wrap')
+    h2(class='text-center font-weight-bold') Popular Designs
+    div(class='popular-slide')
+      div
+      div
+      div
+      div
+      div
+
+      
+
+    
