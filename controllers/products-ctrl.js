@@ -1,23 +1,33 @@
-const Product = require('../models/products-md');
+const Product = require('../models/product-md');
 
 exports.goToProducts = (req, res) => {
-  Product.fetchProducts().then(([rows]) => {
+  Product.fetchAll().then(products => {
+    if(req.session.user){
     res.render('products', {
-      products: rows,
       pageTitle: 'TeeStore | Products',
+      products: products,
+      username: req.session.user.username,
+      isLoggedIn: req.session.isLoggedIn,
+      admin: req.session.user.admin,
       path: '/products'
     });
-  }).catch(err => console.log(err));
+  } else {
+    res.render('products', {
+      pageTitle: 'TeeStore | Products',
+      products: products,
+      path: '/products'
+    });
+  }
+  }).catch(() => console.log('Products page error'));
 }
 
 exports.goToDetails = (req, res) => {
-  const productTitle = req.params.productTitle;
-  Product.getProductDetails(productTitle).then(([rows]) => {
-    console.log(rows[0]);
+  const prodId = req.params.prodId;
+  Product.fetch(prodId).then(product => {
     res.render('product-details', {
-      product: rows[0],
+      product: product,
       pageTitle: 'TeeStore | Product Details',
       path: '/product/product-details'
     });
-  }).catch(err => console.log(err));
+  }).catch(() => console.log('Product details error'));
 }
