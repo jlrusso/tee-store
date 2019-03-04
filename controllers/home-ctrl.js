@@ -1,9 +1,16 @@
 exports.displayHome = (req, res) => {
-  const username = (req.session.user) ? req.session.user.username : null;
-  res.render('home', {
-    pageTitle: 'TeeStore | Home',
-    isLoggedIn: req.session.isLoggedIn,
-    username: username,
-    path: '/home'
-  });
+  if(req.session.user){
+    res.render('home', {
+      pageTitle: 'TeeStore | Home',
+      username: req.session.user.username,
+      isLoggedIn: req.session.isLoggedIn,
+      admin: req.session.user.admin,
+      path: '/home'
+    });
+  } else {
+    res.render('home', {
+      pageTitle: 'TeeStore | Home',
+      path: '/home'
+    });
+  }
 }
