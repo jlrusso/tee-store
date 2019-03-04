@@ -5,11 +5,12 @@ block content
   section(id='product-wrap')
     div(class='product-details-grid')
       div(class='product-image-wrap p-4 text-center')
-        img(alt=`${product.title}` src=`${product.front_image}`)
-        div(class='front-image rounded' style=`background: url(${product.front_image})`)
-        div(class='back-image rounded' style=`background: url(${product.back_image})`)
+        img(alt=`${product.title}` src=`${product.frontImg}`)
+        div(class='front-image rounded' style=`background: url(${product.frontImg})`)
+        div(class='back-image rounded' style=`background: url(${product.backImg})`)
       div(class='product-details p-4 rounded')
         h4(class='text-center mb-3 font-weight-bold') #{product.title}
+        h6(class='text-center mb-3 font-weight-normal w-75 mx-auto') #{product.description}
         form(action=`/cart/add-product` method='POST')
           div(class='form-group mb-4')
             label(for='size-select') Size:
@@ -24,14 +25,18 @@ block content
             div(class='quantity-grid')
               button(type='button' class='btn btn-transparent font-weight-bold') -
               input(type='number' class='text-center form-control' name='quantity' id='product-quantity' min='1' max='99' value='1')
-              button(type='button' class='btn font-weight-bold') +
+              button(type='button' class='btn font-weight-bold')
           div(class='details-divider my-4')
           div(class='product-price-grid')
             div(class='text-right') Price: &nbsp; 
             div(id='product-price' class='text-left')
-            input(type='hidden' name='productId' value=`${product.id}`)
+            input(type='hidden' name='productId' value=`${product._id}`)
             input(type='hidden' value=`${product.price}` name='price' id='hidden-price')
           input(type='submit' class='btn btn-primary py-3' value='Add to Cart')
-    
+    if isLoggedIn && admin
+      div(class='edit-delete-grid')
+        a(href=`/products/delete/${product._id}` class='btn btn-danger') Delete
+        a(href=`/products/edit-product/${product._id}` class='btn btn-secondary') Edit
+
 block script 
   script(type='text/javascript' src='/js/product-details.js')
