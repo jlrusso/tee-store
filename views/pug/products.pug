@@ -4,12 +4,13 @@ block style
 block content 
   if products.length > 0
     section(id='products-wrap' class='p-4')
-      h4(class='font-weight-bold pb-3 text-center') Products
+      h4(class='font-weight-bold py-3 text-center') Products
       div(id='products-grid')
         each product in products
-          a(class='product p-3 text-dark' href=`/products/product-details/${product.title}`)
-            img(class='product-image' src=`${product.front_image}`)
-            p(class='text-center py-2') #{product.title}
+          a(class='product p-3 text-dark' href=`/products/product-details/${product._id}`)
+            img(class='product-image' src=`${product.frontImg}`)
+            p(class='text-center font-weight-bold py-2') #{product.title}
+            p(class='text-center py-2') #{product.description}
             p(class='product-price text-center') $#{product.price}
   else
     section(id='no-products-wrap' class='text-center')
