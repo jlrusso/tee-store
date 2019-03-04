@@ -4,30 +4,30 @@ block style
 block content
   section(class='cart-wrap')
     div(class='cart-item-list p-4 pb-5')
-      h4(class='font-weight-bold mb-5 d-inline-block text-dark') Shopping Cart 
-      each product in cartProducts 
+      h4(class='text-center font-weight-bold mb-5 d-block text-dark') Shopping Cart 
+      each product in products 
         div(class='cart-item-wrap mb-4 p-2')
           div(class='item-img')
-            img(class='w-100' src=`${product.front_image}`)
+            img(class='w-100' src=`${product.frontImg}`)
           div(class='title-wrap') 
             p(class='text-center') #{product.title} 
           div(class='size-wrap') 
-            p(class='text-center') Size: #{product.cartItem.size}
+            p(class='text-center') Size: #{product.size}
           div(class='item-quantity-wrap')
             div
               a(class='font-weight-bold text-center px-2 reduce-btn') - 
-              input(type='number' value=`${product.cartItem.quantity}` min='0' max='99')
+              input(type='number' value=`${product.quantity}` min='0' max='99')
               a(class='font-weight-bold text-center px-2 increase-btn') +
           div(class='item-price-wrap')
             p(class='text-center' data-price=`${product.price}`)
           div(class='close-btn-wrap')
-            a(href=`/cart/remove-product/${product.id}` class='text-dark')
+            a(href=`/cart/remove-product/${product._id}` class='text-dark')
               i(class='fa fa-times')
       a(href='/products' class='btn btn-primary px-3' id='cont-shop-btn')
         span 
           i(class='fa fa-arrow-left') 
         span &nbsp; Continue Shopping
-    if cartProducts.length > 0
+    if products.length > 0
       a(href='/cart/checkout' class='btn btn-primary px-3' id='checkout-btn')
         span Checkout &nbsp;
           i(class='fa fa-arrow-right')
