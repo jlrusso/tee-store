@@ -12,7 +12,7 @@ const redirectHome = (req, res, next) => {
 }
 
 router.get('/', redirectHome, loginCtrl.goToLogin);
-router.post('/', redirectHome, loginCtrl.userAuth);
+router.post('/', redirectHome, loginCtrl.authenticate);
 router.use(errorCtrl.goToError);
 
 module.exports = router;
