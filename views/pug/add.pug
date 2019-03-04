@@ -3,7 +3,7 @@ block style
   link(type='text/css' rel='stylesheet' href='/css/add.css')
 block content
   section(class='add-product-wrap')
-    h4(class='text-center') Add Product
+    h4(class='display-5 text-center font-weight-bold mb-3') Add Product
     form(action='/add/new-product' method='POST' id='add-product-form')
       div(class='form-group')
         label(for='product-type') Product Type:
@@ -14,13 +14,16 @@ block content
       div(class='form-group')
         label(for='product-title') Title:
         input(type='text' name='title' id='product-title' class='form-control' placeholder='Funny Cat' required)
+      div(class="form-group") 
+        label(for="product-description") Description:
+        input(type="text" name="description" id="product-description" class="form-control" required)
       div(class='form-group')
         label(for='front-image') Front Image:
         input(type='text' name='frontImage' id='front-image' class='form-control' placeholder='http:front.image.jpeg' required)
       div(class='form-group')
-        label(for='front-image') Back Image:
+        label(for='back-image') Back Image:
         input(type='text' name='backImage' id='back-image' class='form-control' placeholder='http:back.image.jpeg' required)
       div(class='form-group')
-        label(for='product-price') Price:
+        label(for='product-price') Price ($):
         input(type='number' name='price' id='product-price' step='0.01' class='form-control' placeholder='19.99' required) 
       input(type='submit' value='Submit' class='btn btn-primary w-100')
