@@ -2,15 +2,15 @@ extends ../layouts/main.pug
 block style 
   link(type='text/css' rel='stylesheet' href='/css/login.css')
 block content 
-  main(id='login-wrap' class='bg-dark')
+  main(id='login-wrap' class='bg-light')
     form(action='/login' method='POST' id='login-form')
       p(class='text-center')
         i(class='fas fa-burn text-primary')
-      h2(class='text-center text-light') Log in
+      h2(class='text-center text-dark') Log in
       div(class='form-group')
-        label(for='username-input' class='text-light') Username:
+        label(for='username-input' class='text-dark font-weight-bold') Username:
         input(type='text' name='username' class='form-control' placeholder='jDoe23!' id='username-input')
       div(class='form-group')
-        label(for='password-input' class='text-light') Password:
+        label(for='password-input' class='text-dark font-weight-bold') Password:
         input(type='password' name='password' class='form-control' placeholder='********' id='password-input')
       input(type='submit' class='btn btn-primary d-block w-100 mt-4' value='Enter')
