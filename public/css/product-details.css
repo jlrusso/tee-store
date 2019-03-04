@@ -89,3 +89,15 @@ form [type='submit'] {
   bottom: 24px;
   transform: translateX(-50%);
 }
+.edit-delete-grid {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  width: 300px;
+  max-width: 95%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 15px;
+}
