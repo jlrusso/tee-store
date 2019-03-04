@@ -12,7 +12,7 @@ const redirectHome = (req, res, next) => {
 }
 
 router.get('/', redirectHome, cartCtrl.goToCart);
-router.post('/add-product', redirectHome, cartCtrl.addToCart);
+router.post('/add-product', redirectHome, cartCtrl.addProduct);
 router.get('/remove-product/:productId', redirectHome, cartCtrl.removeProduct);
 router.get('/checkout', redirectHome, cartCtrl.goToCheckout);
 router.use(errorCtrl.goToError);
