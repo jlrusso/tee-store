@@ -1,26 +1,26 @@
 const User = require('../models/user-md');
 
 exports.goToLogin = (req, res) => {
+  const username = req.session.user ? req.session.user.username : null;
   res.render('login', {
     pageTitle: 'TeeStore | Login',
+    username: username,
     path: '/login'
   });
 }
 
-exports.userAuth = (req, res) => {
+exports.authenticate = (req, res) => {
   const { username, password } = req.body;
-  User.findOne({where: {
-    username: username,
-    password: password
-  }}).then(user => {
+  User.fetch({username, password})
+  .then(user => {
     if(!user){
-      res.redirect('/signup?user-invalid');
+      res.redirect('/signup?user-dne');
     } else {
       req.session.isLoggedIn = true;
       req.session.user = user;
-      res.redirect('/home?user-authenticated')
+      res.redirect('/home?authenticated');
     }
-  }).catch(() => {
-    res.redirect('/login?user-invalid');
+  }).catch(err => {
+    res.redirect('/home?not-authenticated');
   });
 }
