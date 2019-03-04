@@ -1,41 +1,26 @@
 const User = require('../models/user-md');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+
+exports.createUser = (req, res) => {
+  const { username, email, password } = req.body;
+  User.checkExisting({username, email}).then(user => {
+    if(user){
+      res.redirect('/login?user-exists');
+    } else {
+      const user = new User(username, email, password);
+      return user.create();
+    }
+  }).then(user => {
+    req.session.user = user;
+    req.session.isLoggedIn = true;
+    res.redirect('/home?authenticated');
+  }).catch(err => {
+    res.redirect('/home?auth-failed');
+  });
+}
 
 exports.goToSignup = (req, res) => {
   res.render('signup', {
     pageTitle: 'TeeStore | Signup',
     path: '/signup'
-  });
-}
-
-exports.userAuth = (req, res) => {
-  User.findOne({where: {
-    [Op.or]: [{username: req.body.username}, {email: req.body.email}]
-  }}).then(user => {
-    if(!user){
-      createNewUser(req, res);
-    } else {
-      res.redirect('/login');
-    }
-  }).catch(() => {
-    createNewUser(req, res);
-  });
-}
-
-const createNewUser = (req, res) => {
-  User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  }).then(user => {
-    req.session.user = user;
-    req.session.isLoggedIn = true;
-    return user.createCart();
-  }).then(user => {
-    res.redirect('/home?authenticated');
-  }).catch(err => {
-    console.log(err);
-    res.redirect('/error');
   });
 }
