@@ -1,13 +1,36 @@
-const Sequelize = require('sequelize');
-const dbconn = require('../util/database');
+const { ObjectId } = require("mongodb");
+const { getDb } = require("../util/database");
 
-const Cart = dbconn.define('cart', {
-  id: {
-    type: Sequelize.UUID,
-    primaryKey: true,
-    allowNull: false,
-    defaultValue: Sequelize.UUIDV4
+class Cart {
+  constructor(userId){
+    this.userId = userId;
+    this.products = [];
+    this.total = 0;
   }
-});
+  create(){
+    const db = getDb();
+    return db.collection("carts").insertOne(this)
+    .then(() => console.log("cart created"))
+    .catch(() => console.log("cart not created"));
+  }
+  static updateCart(userId, products){
+    const db = getDb();
+    return db.collection("carts").updateOne({userId: new ObjectId(userId)}, {$set: {products}})
+    .then(() => console.log("products updated"))
+    .catch(() => console.log("products not updated"));
+  }
+  static fetch(userId){
+    const db = getDb();
+    return db.collection("carts").findOne({userId: new ObjectId(userId)})
+    .then(cart => cart)
+    .catch(() => console.log("could not fetch cart"));
+  }
+  static async remove(userId, prodId){
+    const db = getDb();
+    const dbCart = await db.collection("carts").findOne({userId: new ObjectId(userId)});
+    const updatedProducts = dbCart.products.filter(product => product.productId !== prodId);
+    return db.collection("carts").updateOne({userId: new ObjectId(userId)}, {$set: {products: updatedProducts}});
+  }
+}
 
 module.exports = Cart;
