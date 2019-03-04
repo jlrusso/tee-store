@@ -1,0 +1,20 @@
+.edit-product-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 95%;
+}
+#edit-product-form {
+  width: 600px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 15px;
+}
+::placeholder {
+  color: rgba(0,0,0,0.3) !important;
+}
+#edit-product-form .btn {
+  grid-column: 1 / 3;
+}
