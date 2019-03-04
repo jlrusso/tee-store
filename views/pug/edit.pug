@@ -1,0 +1,29 @@
+extends ../layouts/main.pug 
+block style
+  link(type='text/css' rel='stylesheet' href='/css/edit.css')
+block content
+  section(class='edit-product-wrap')
+    h4(class='display-5 text-center font-weight-bold mb-3') Edit Product
+    form(action=`/products/edit-product/${product._id}` method='POST' id='edit-product-form')
+      div(class='form-group')
+        label(for='product-type') Product Type:
+        select(id='product-type' name='type' class='form-control' required)
+          option Shirt
+          option Pants
+          option Sweater
+      div(class='form-group')
+        label(for='product-title') Title:
+        input(type='text' name='title' id='product-title' class='form-control' placeholder='Funny Cat' value=`${product.title}` required)
+      div(class="form-group") 
+        label(for="product-description") Description:
+        input(type="text" name="description" id="product-description" class="form-control" value=`${product.description}` required)
+      div(class='form-group')
+        label(for='front-image') Front Image:
+        input(type='text' name='frontImg' id='front-image' class='form-control' placeholder='http:front.image.jpeg' value=`${product.frontImg}` required)
+      div(class='form-group')
+        label(for='back-image') Back Image:
+        input(type='text' name='backImg' id='back-image' class='form-control' placeholder='http:back.image.jpeg' value=`${product.backImg}` required)
+      div(class='form-group')
+        label(for='product-price') Price ($):
+        input(type='number' name='price' id='product-price' step='0.01' class='form-control' placeholder='19.99' value=`${product.price}` required) 
+      input(type='submit' value='Submit' class='btn btn-primary w-100')
