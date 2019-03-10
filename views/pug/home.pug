@@ -2,13 +2,14 @@ extends ../layouts/main.pug
 block style
   link(type='text/css' rel='stylesheet' href='/css/home.css')
 block content
-  section(class='landing-wrap text-center')
+  section(class='landing-wrap')
     div(class='landing-grid')
       div(class='landing-slide w-75 mx-auto border border-danger')
-      div(class='call-to-action') 
-        h2(class='display-5') Custom t-shirts of all types
-        p(class='text-center w-75 mx-auto') Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste beatae dolor vero perferendis non ex provident, veniam eos itaque?
-        a(href='/products' class='btn btn-primary px-4') Lets Go!
+      div(class='landing-content') 
+        div(class='landing-content-inner w-75')
+          h2(class='display-5 font-weight-bold text-left') Custom t-shirts of all types
+          p(class='text-left mx-auto') Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iste beatae dolor vero perferendis non ex provident, veniam eos itaque? Lorem ipsum dolor sit amet
+          a(href='/products' class='btn btn-primary px-5') Lets Go!
       
   section(class='custom-info-wrap')
     div(class='info-desc-wrap')
