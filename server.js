@@ -7,7 +7,7 @@ const connectClient = require("./util/database").connectClient;
 app.set('views', `${__dirname}/views/pug`);
 app.set('view engine', 'pug');
 app.use(express.urlencoded({extended: false}));
-app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`${__dirname}/public`));
 app.use(session({ 
   secret: 'el-secreto',
   resave: false,
