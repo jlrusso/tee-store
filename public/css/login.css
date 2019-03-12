@@ -4,16 +4,20 @@
   left: 0;
   width: 100%;
   height: 100%;
-}
-#login-form {
-  width: 350px;
-  max-width: 90%;
-  height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.fa-burn {
-  font-size: 1.6rem;
-}
+  background: linear-gradient(#0A375B, #000304); }
+  #login-wrap form {
+    width: 350px;
+    max-width: 90%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    #login-wrap form .fa-burn {
+      font-size: 1.6rem; }
+
+/*# sourceMappingURL=login.css.map */
