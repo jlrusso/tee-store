@@ -15,9 +15,19 @@ class Cart {
   }
   static updateCart(userId, products){
     const db = getDb();
-    return db.collection("carts").updateOne({userId: new ObjectId(userId)}, {$set: {products}})
-    .then(() => console.log("products updated"))
+    return db.collection("carts").updateOne(
+      {userId: new ObjectId(userId)}, 
+      {$set: {products}}
+    ).then(() => console.log("products updated"))
     .catch(() => console.log("products not updated"));
+  }
+  static addToCart(userId, product){
+    const db = getDb();
+    return db.collection("carts").updateOne(
+      {userId: new ObjectId(userId)}, 
+      {$push: {products: product}}
+    ).then(() => console.log("product added"))
+    .catch(() => console.log("product not added"));
   }
   static fetch(userId){
     const db = getDb();
