@@ -23,6 +23,11 @@ block content
           div(class='close-btn-wrap')
             a(href=`/cart/remove-product/${product._id}` class='text-dark')
               i(class='fa fa-times')
+      if products.length > 0
+        section(class='cart-summary text-center border-top border-dark py-4')
+          p(class='font-weight-bold') Total:  
+            span(class='font-weight-normal') $#{subtotal}
+
       a(href='/products' class='btn btn-primary px-3' id='cont-shop-btn')
         span 
           i(class='fa fa-arrow-left') 
