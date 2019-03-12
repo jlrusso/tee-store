@@ -2,18 +2,40 @@ const { ObjectId } = require("mongodb");
 const Cart = require('../models/cart-md');
 const Product = require("../models/product-md");
 
+const getEntireProducts = userId => {
+  return Cart.fetch(userId).then(cart => {
+    const cpIds = cart.products.map(cp => new ObjectId(cp.productId));
+    return Product.fetchSelect(cpIds, cart);
+  });
+};
+
+const addQuantityAndSize = (products, cart) => {
+  const prodArr = [];
+  cart.products.forEach(cp => {
+    const product = products.find(product => product._id.toString() === cp.productId);
+    product.quantity = cp.quantity;
+    product.size = cp.size;
+    prodArr.push(product);
+  });
+  return Promise.resolve(prodArr);
+};
+
+const updateCartProducts = (cart, userId, {productId, size, quantity}) => {
+  const existingItemIndex = cart.products.findIndex(item => item.productId === productId);
+  if(existingItemIndex > -1){
+    const updatedProducts = [...cart.products];
+    const prevQuantity = parseInt(updatedProducts[existingItemIndex].quantity, 10);
+    updatedProducts[existingItemIndex].quantity = prevQuantity + parseInt(quantity, 10);
+    return Cart.updateCart(userId, updatedProducts);
+  } else {
+    return Cart.addToCart(userId, {productId, size, quantity});
+  }
+};
+
 exports.goToCart = (req, res) => {
   const { username, _id } = req.session.user;
-  Cart.fetch(_id).then(cart => {
-    const prodIds = cart.products.map(product => new ObjectId(product.productId));
-    return Product.fetchSelect(prodIds, cart);
-  }).then(({products, cart}) => {
-    const prodArr = [...products];
-    cart.products.forEach((cartProduct, index) => {
-      prodArr[index].quantity = cartProduct.quantity;
-      prodArr[index].size = cartProduct.size;
-    });
-    return Promise.resolve(prodArr);
+  getEntireProducts(_id).then(({products, cart}) => {
+    return addQuantityAndSize(products, cart);
   }).then(products => {
     res.render('cart', {
       products: products,
@@ -29,22 +51,13 @@ exports.goToCart = (req, res) => {
 }
 
 exports.addProduct = (req, res) => {
-  const { productId, size, quantity } = req.body;
   const { _id } = req.session.user;
   Cart.fetch(_id).then(cart => {
-    const products = cart.products;
-    const existingItemIndex = products.findIndex(item => item.productId === productId);
-    if(existingItemIndex > -1){
-      const updatedProducts = [...products];
-      updatedProducts[existingItemIndex].quantity = quantity;
-      return Cart.updateCart(_id, updatedProducts);
-    } else {
-      const updatedProducts = [...products, {productId, size, quantity}];
-      return Cart.updateCart(_id, updatedProducts);
-    }
+    return updateCartProducts(cart, _id, req.body);
   }).then(() => {
     res.redirect('/products?product-added');
-  }).catch(() => {
+  }).catch(err => {
+    console.log(err);
     res.redirect('/products?product-not-added');
   });
 }
@@ -60,8 +73,10 @@ exports.removeProduct = (req, res) => {
 }
 
 exports.goToCheckout = (req, res) => {
-  res.render('checkout', {
+  const {user, isLoggedIn} = req.session;
+  res.render('cart', {
     pageTitle: 'TeeStore | Checkout',
-    path: '/checkout'
+    isLoggedIn: isLoggedIn,
+    username: user.username,
   });
 }
