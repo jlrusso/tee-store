@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  background: linear-gradient(#0A375B, #000304);
 }
 .landing-grid {
   width: 100%;
@@ -61,4 +62,13 @@
 .popular-slide > div {
   height: 200px;
   border: 1px solid red;
+}
+.landing-content {
+  position: relative;
+}
+.landing-content-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
