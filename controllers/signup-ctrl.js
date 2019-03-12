@@ -1,4 +1,5 @@
 const User = require('../models/user-md');
+const Cart = require('../models/cart-md');
 
 exports.createUser = (req, res) => {
   const { username, email, password } = req.body;
@@ -10,6 +11,8 @@ exports.createUser = (req, res) => {
       return user.create();
     }
   }).then(user => {
+    const newCart = new Cart(user._id);
+    newCart.create();
     req.session.user = user;
     req.session.isLoggedIn = true;
     res.redirect('/home?authenticated');
