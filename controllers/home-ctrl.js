@@ -5,6 +5,7 @@ exports.displayHome = (req, res) => {
       username: req.session.user.username,
       isLoggedIn: req.session.isLoggedIn,
       admin: req.session.user.admin,
+      id: req.session.user.id,
       path: '/home'
     });
   } else {
