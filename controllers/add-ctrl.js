@@ -1,14 +1,20 @@
 const Product = require('../models/product-md');
 
 exports.goToAdd = (req, res) => {
-  const { user, isLoggedIn } = req.session;
-  res.render('add', {
-    pageTitle: 'TeeStore | Add',
-    username: user.username,
-    isLoggedIn: isLoggedIn,
-    admin: user.admin,
-    path: '/add'
-  });
+  if(req.session.user){
+    res.render('add', {
+      pageTitle: 'TeeStore | Add',
+      username: req.session.user.username,
+      isLoggedIn: req.session.isLoggedIn,
+      admin: req.session.user.admin,
+      path: '/add'
+    });
+  } else {
+    res.render('add', {
+      pageTitle: 'TeeStore | Add',
+      path: '/add'
+    });
+  }
 }
 
 exports.addProduct = (req, res) => {
