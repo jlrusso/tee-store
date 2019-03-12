@@ -1,5 +1,4 @@
 const { getDb } = require("../util/database");
-const Cart = require("../models/cart-md");
 
 class User {
   constructor(username, email, password){
@@ -11,11 +10,8 @@ class User {
   create(){
     const db = getDb();
     return db.collection("users").insertOne(this)
-    .then(user => Promise.resolve(user)).then(user => {
-      const newCart = new Cart(user._id);
-      newCart.create();
-      return user;
-    }).catch(err => console.log(err));
+    .then(() => console.log("user created"))
+    .catch(err => console.log(err));
   }
   static fetch({username, password}){
     const db = getDb();
