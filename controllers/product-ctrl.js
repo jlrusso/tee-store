@@ -3,21 +3,23 @@ const Product = require('../models/product-md');
 exports.goToProducts = (req, res) => {
   Product.fetchAll().then(products => {
     if(req.session.user){
-    res.render('products', {
-      pageTitle: 'TeeStore | Products',
-      products: products,
-      username: req.session.user.username,
-      isLoggedIn: req.session.isLoggedIn,
-      admin: req.session.user.admin,
-      path: '/products'
-    });
-  } else {
-    res.render('products', {
-      pageTitle: 'TeeStore | Products',
-      products: products,
-      path: '/products'
-    });
-  }
+      const { user, isLoggedIn, cartNumber } = req.session;
+      res.render('products', {
+        pageTitle: 'TeeStore | Products',
+        products: products,
+        username: user.username,
+        cartNumber: cartNumber,
+        isLoggedIn: isLoggedIn,
+        admin: user.admin,
+        path: '/products'
+      });
+    } else {
+      res.render('products', {
+        pageTitle: 'TeeStore | Products',
+        products: products,
+        path: '/products'
+      });
+    }
   }).catch(() => console.log('Products page error'));
 }
 
@@ -25,12 +27,14 @@ exports.goToDetails = (req, res) => {
   const prodId = req.params.prodId;
   Product.fetch(prodId).then(product => {
     if(req.session.user){
+      const { user, isLoggedIn, cartNumber } = req.session;
       res.render('product-details', {
         pageTitle: 'TeeStore | Product',
         product: product,
-        username: req.session.user.username,
-        isLoggedIn: req.session.isLoggedIn,
-        admin: req.session.user.admin,
+        username: user.username,
+        cartNumber: cartNumber,
+        isLoggedIn: isLoggedIn,
+        admin: user.admin,
         path: '/products/product-details'
       });
     } else {
@@ -56,12 +60,14 @@ exports.goToEdit = (req, res) => {
   const prodId = req.params.prodId;
   Product.fetch(prodId).then(product => {
     if(req.session.user){
+      const { user, isLoggedIn, cartNumber } = req.session;
       res.render('edit', {
         pageTitle: 'TeeStore | Edit Product',
+        username: user.username,
+        isLoggedIn: isLoggedIn,
+        cartNumber: cartNumber,
+        admin: user.admin,
         product: product,
-        username: req.session.user.username,
-        isLoggedIn: req.session.isLoggedIn,
-        admin: req.session.user.admin,
         path: '/products/edit-product'
       });
     } else {
