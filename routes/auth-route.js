@@ -6,8 +6,8 @@ const authCheck = require('../middleware/auth-check');
 
 router.get('/new-user', authCheck.notAuth, authCtrl.goToSignup);
 router.post('/new-user', authCheck.notAuth, authCtrl.createUser);
-router.get('/existing-user', authCheck.isAuth, authCtrl.goToLogin);
-router.post('/existing-user', authCheck.isAuth, authCtrl.authenticate);
+router.get('/existing-user', authCheck.notAuth, authCtrl.goToLogin);
+router.post('/existing-user', authCheck.notAuth, authCtrl.authenticate);
 router.get('/', authCheck.isAuth, authCtrl.logOut);
 router.use(errorCtrl.goToError);
 
