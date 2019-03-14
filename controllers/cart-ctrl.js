@@ -33,20 +33,20 @@ const updateCartProducts = (cart, userId, {productId, size, quantity}) => {
 };
 
 exports.goToCart = (req, res) => {
-  const { username, _id } = req.session.user;
-  getEntireProducts(_id).then(({products, cart}) => {
+  const { user, cartNumber, isLoggedIn } = req.session;
+  getEntireProducts(user._id).then(({products, cart}) => {
     return addQuantityAndSize(products, cart);
   }).then(products => {
     res.render('cart', {
       products: products,
+      cartNumber: cartNumber,
       subtotal: products.reduce((acc, prod) => parseFloat(prod.price) + acc, 0),
       pageTitle: 'TeeStore | Cart',
-      isLoggedIn: req.session.isLoggedIn,
-      username: username,
+      isLoggedIn: isLoggedIn,
+      username: user.username,
       path: '/cart'
     });
   }).catch(err => {
-    console.log(err);
     res.redirect('/products');
   });
 }
@@ -56,7 +56,10 @@ exports.addProduct = (req, res) => {
   Cart.fetch(_id).then(cart => {
     return updateCartProducts(cart, _id, req.body);
   }).then(() => {
-    res.redirect('/products?product-added');
+    req.session.cartNumber++;
+    req.session.save(() => {
+      res.redirect('/products?product-added');
+    });
   }).catch(err => {
     console.log(err);
     res.redirect('/products?product-not-added');
@@ -67,7 +70,10 @@ exports.removeProduct = (req, res) => {
   const prodId = req.params.productId;
   const { _id } = req.session.user;
   Cart.remove(_id, prodId).then(() => {
-    res.redirect('/cart?product-removed');
+    req.session.cartNumber--;
+    req.session.save(() => {
+      res.redirect('/cart?product-removed');
+    });
   }).catch(() => {
     res.redirect('/cart?product-not-removed');
   });
