@@ -10,19 +10,19 @@ class User {
   create(){
     const db = getDb();
     return db.collection("users").insertOne(this)
-    .then(() => console.log("user created"))
+    .then(() => this)
     .catch(err => console.log(err));
   }
-  static fetch({username, password}){
+  static fetch(username){
     const db = getDb();
-    return db.collection("users").findOne({username, password})
+    return db.collection("users").findOne({username})
     .then(user => user)
     .catch(err => console.log(err));
   }
   static checkExisting({username, email}){
     const db = getDb();
     return db.collection("users").findOne({
-      $or: [{username, email}, {email}]
+      $or: [{username}, {email}]
     }).then(user => user)
     .catch(err => console.log(err));
   }
