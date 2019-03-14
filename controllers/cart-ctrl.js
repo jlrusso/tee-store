@@ -40,7 +40,6 @@ exports.goToCart = (req, res) => {
     res.render('cart', {
       products: products,
       cartNumber: cartNumber,
-      subtotal: products.reduce((acc, prod) => parseFloat(prod.price) + acc, 0),
       pageTitle: 'TeeStore | Cart',
       isLoggedIn: isLoggedIn,
       username: user.username,
