@@ -2,41 +2,40 @@ extends ../layouts/main.pug
 block style
   link(type='text/css' rel='stylesheet' href='/css/cart.css')
 block content
-  section(class='cart-wrap')
-    div(class='cart-item-list p-4 pb-5')
-      h4(class='text-center font-weight-bold mb-5 d-block text-dark') Shopping Cart 
-      each product in products 
-        div(class='cart-item-wrap mb-4 p-2')
-          div(class='item-img')
-            img(class='w-100' src=`${product.frontImg}`)
-          div(class='title-wrap') 
-            p(class='text-center') #{product.title} 
-          div(class='size-wrap') 
-            p(class='text-center') Size: #{product.size}
-          div(class='item-quantity-wrap')
-            div
-              a(class='font-weight-bold text-center px-2 reduce-btn') - 
-              input(type='number' value=`${product.quantity}` min='0' max='99')
-              a(class='font-weight-bold text-center px-2 increase-btn') +
-          div(class='item-price-wrap')
-            p(class='text-center' data-price=`${product.price}`)
-          div(class='close-btn-wrap')
-            a(href=`/cart/remove-product/${product._id}` class='text-dark')
-              i(class='fa fa-times')
-      if products.length > 0
-        section(class='cart-summary text-center border-top border-dark py-4')
-          p(class='font-weight-bold') Total:  
-            span(class='font-weight-normal') $#{subtotal}
+  section(id="cart-wrap")
+    h4(class='text-center text-dark font-weight-bold my-4') Shopping Cart
 
-      a(href='/products' class='btn btn-primary px-3' id='cont-shop-btn')
-        span 
-          i(class='fa fa-arrow-left') 
-        span &nbsp; Continue Shopping
     if products.length > 0
-      a(href='/cart/checkout' class='btn btn-primary px-3' id='checkout-btn')
-        span Checkout &nbsp;
-          i(class='fa fa-arrow-right')
+      ul(class='my-2 text-center p-2')
+        li(class='font-weight-bold rounded') Product
+        li(class='font-weight-bold rounded') Title
+        li(class='font-weight-bold rounded') Size
+        li(class='font-weight-bold rounded') Quantity
+        li(class='font-weight-bold rounded') Price
 
+      ul(class='mt-2')
+        each product in products
+          li(class='cart-item mb-4 p-2')
+            span(class='cart-item-img-wrap text-center vert-center')
+              img(src=`${product.frontImg}`)
+            span(class='cart-item-title text-center vert-center') #{product.title}
+            span(class='cart-item-size text-center vert-center') #{product.size} 
+            div(class='cart-item-quantity-wrap position-relative')
+              div(class='text-center')
+                a(class='font-weight-bold px-2 reduce-btn') - 
+                input(type='number' class='rounded text-center pl-3' value=`${product.quantity}` min='0' max='99')
+                a(class='font-weight-bold px-2 increase-btn') +
+            span(class='cart-item-price text-center vert-center' data-price=`${product.price}`) $#{product.price}
+            span(class='remove-cart-item text-center vert-center') 
+              a(href=`/cart/remove-product/${product._id}` class='text-dark') Remove
+
+      section(id='cart-summary' class='w-75 text-center py-4 mx-auto')
+        p(class='font-weight-bold') Total:  
+          span(id='cart-subtotal' class='font-weight-normal')
+
+    else
+      div(class='view-products-wrap text-center') 
+        a(href='/products' class='btn btn-primary px-4') View Products
 
 block script  
   script(type='text/javascript' src='/js/cart.js')
