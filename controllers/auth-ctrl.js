@@ -1,5 +1,6 @@
 const User = require('../models/user-md');
 const Cart = require('../models/cart-md');
+const bcrypt = require('bcryptjs');
 
 exports.createUser = (req, res) => {
   const { username, email, password } = req.body;
@@ -7,15 +8,20 @@ exports.createUser = (req, res) => {
     if(user){
       res.redirect('/login?user-exists');
     } else {
-      const user = new User(username, email, password);
-      return user.create();
+      return bcrypt.hash(password, 12);
     }
+  }).then(hashedPwd => {
+    const user = new User(username, email, hashedPwd);
+    return user.create();
   }).then(user => {
     const newCart = new Cart(user._id);
     newCart.create();
     req.session.user = user;
+    req.session.cartNumber = 0;
     req.session.isLoggedIn = true;
-    res.redirect('/home?authenticated');
+    req.session.save(() => {
+      res.redirect('/home?authenticated');
+    });
   }).catch(err => {
     res.redirect('/home?auth-failed');
   });
@@ -29,27 +35,39 @@ exports.goToSignup = (req, res) => {
 }
 
 exports.goToLogin = (req, res) => {
-  const username = req.session.user ? req.session.user.username : null;
   res.render('login', {
     pageTitle: 'TeeStore | Login',
-    username: username,
     path: '/login/existing-user'
   });
 }
 
 exports.authenticate = (req, res) => {
   const { username, password } = req.body;
-  User.fetch({username, password})
+  let authedUser;
+  User.fetch(username)
   .then(user => {
     if(!user){
-      res.redirect('/signup?user-dne');
+      return res.redirect('/signup/new-user?user-dne');
     } else {
-      req.session.isLoggedIn = true;
-      req.session.user = user;
-      res.redirect('/home?authenticated');
+      authedUser = user;
+      return bcrypt.compare(password, user.password);
     }
+  }).then(pwdMatch => {
+    if(!pwdMatch){
+      return res.redirect('/login/existing-user?match-err'); 
+    }
+    req.session.isLoggedIn = true;
+    req.session.user = authedUser;
+    return Promise.resolve(authedUser._id);
+  }).then(userId => {
+    return Cart.fetch(userId);
+  }).then(cart => {
+    req.session.cartNumber = cart.products.length;
+    req.session.save(() => {
+      res.redirect('/home?authenticated');
+    });
   }).catch(err => {
-    res.redirect('/home?not-authenticated');
+    res.redirect('/signup/new-user');
   });
 }
 
