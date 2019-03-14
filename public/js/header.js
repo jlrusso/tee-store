@@ -1,6 +1,6 @@
 (function(){
   const acceptableImgExts = ['.png', '.jpeg', '.jpg', '.PNG', '.JPG', '.JPEG'];
-  const searchBtn = document.querySelector('nav > a:last-of-type');
+  const searchBtn = document.querySelector('nav li:last-of-type');
   const searchWrap = document.getElementById('search-wrap');
   const searchBar = document.querySelector('#search-wrap input');
   const closeSearchBtn = document.querySelector('#search-wrap > a');
