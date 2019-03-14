@@ -27,7 +27,7 @@ class Cart {
       {userId: new ObjectId(userId)}, 
       {$push: {products: product}}
     ).then(() => console.log("product added"))
-    .catch(() => console.log("product not added"));
+    .catch(err => console.log(err));
   }
   static fetch(userId){
     const db = getDb();
