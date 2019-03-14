@@ -2,17 +2,10 @@ const express = require('express');
 const router = express.Router();
 const addCtrl = require('../controllers/add-ctrl');
 const errorCtrl = require('../controllers/error-ctrl');
+const authCheck = require('../middleware/auth-check');
 
-const redirectHome = (req, res, next) => {
-  if(!req.session.isLoggedIn){
-    res.redirect('/home');
-  } else {
-    next();
-  }
-}
-
-router.get('/', redirectHome, addCtrl.goToAdd);
-router.post('/new-product', redirectHome, addCtrl.addProduct);
+router.get('/', authCheck.isAuth, addCtrl.goToAdd);
+router.post('/new-product', authCheck.isAuth, addCtrl.addProduct);
 router.use(errorCtrl.goToError);
 
 module.exports = router;
